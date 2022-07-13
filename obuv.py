@@ -9,11 +9,12 @@ from obuv_driver import *
 from obuv_good import *
 import colorama
 from colorama import Fore, Back, Style
-
+from click import echo, style
 
 def unload_one_good(dw:WD, lc_link_on_good: str, pc_price:str):
     lo_good = Good(dw, lc_link_on_good, pc_price)
     print(Fore.YELLOW + "Название:" + Fore.LIGHTGREEN_EX, lo_good.name, Fore.RESET)
+    print(Fore.YELLOW + "Артикул:" + Fore.LIGHTGREEN_EX, lo_good.article, Fore.RESET)
     print(Fore.YELLOW + "Цена:" + Fore.LIGHTGREEN_EX, lo_good.price, Fore.RESET)
     print(Fore.YELLOW + "Описание:" + Fore.LIGHTGREEN_EX, lo_good.description, Fore.RESET)
     print(Fore.YELLOW + "Картинки:" + Fore.LIGHTGREEN_EX, lo_good.pictures, Fore.RESET)

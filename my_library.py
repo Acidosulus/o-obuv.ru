@@ -38,7 +38,6 @@ def str_to_file(file_path:str, st:str): # записывает строку в �
     file.close()
 
 
-
 def prepare_for_csv_non_list (pc_value):     # подготовка к записи в csv, списки преобразуются к строке с разделителями пробелами
     if type(pc_value) =="<class 'str'>":
         return prepare_str(pc_value)
