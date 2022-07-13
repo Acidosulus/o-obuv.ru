@@ -46,31 +46,30 @@ class Good:
 
         self.name = soup.find('h1', {'class':'product-title'}).text
         self.article = soup.find('p', {'class':'model'}).text
-        self.price = soup.find('span', {'class':'price'}).text.strip().replace('руб.','').replace(' ','').replace('₽','')
+
+        prices = soup.find_all('span', {'class':'price'})
+        for price in prices:
+            if 'line-through' not in str(price):
+                self.price = price.text.strip().replace('руб.','').replace(' ','').replace('₽','')
+
         
-        
+        try: self.description = soup.find('h4').text.replace('\n','').replace('\t','').replace('\r','')
+        except: pass
         lc_descr = sx(ol.page_source, '<p class="description"><p>','<ul class="')
         descr = BeautifulSoup(lc_descr, features='html5lib')
         paragraphs = descr.find_all('span')
         for paragraph in paragraphs:
             self.description = self.description + ' ' + paragraph.text.strip().replace('\n','').replace('\t','').replace('\r','')
         self.description = self.description.strip()
-        
-        images_container = str(soup.find('div', {'id':'product_slideshow'}))
-        images_soup = BeautifulSoup(images_container, features='html5lib')
+
+        images_soup = BeautifulSoup(str(soup.find('div', {'id':'product_slideshow'})), features='html5lib')
         images = images_soup.find_all('img', {'class':'img-responsive'})
         for image in images:
             self.pictures.append(image['src'])
 
-        return
-
-
-        pic1 = str(soup.find('div', "product-image").contents[1])
-        pic2 = BeautifulSoup(pic1, features='html5lib')
-        self.pictures.append(pic2.find('a')['href'].replace('./',ol.site_url))
-
-        self.price = soup.find('div', 'price').text.strip().replace('руб.','').replace(' ','')
-        self.description = soup.find('div', 'tab-pane active').text.strip().replace('\n','').replace('\t','').replace('\r','')
-        
-
-
+        sizes_soup = BeautifulSoup(str(soup.find('select', {'class':'form-control select'})), features='html5lib')
+        sizes = sizes_soup.find_all('option')
+        for size in sizes:
+            lc_size = size.text.strip()
+            if lc_size not in self.sizes and lc_size!='Выбрать':
+                self.sizes.append(lc_size)

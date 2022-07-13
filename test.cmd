@@ -1,1 +1,0 @@
-python obuv.py good "https://o-obuv.ru/krossovki-uniseks-285" ".\csvs\test.csv"

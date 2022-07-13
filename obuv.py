@@ -18,6 +18,7 @@ def unload_one_good(dw:WD, lc_link_on_good: str, pc_price:str):
     print(Fore.YELLOW + "Цена:" + Fore.LIGHTGREEN_EX, lo_good.price, Fore.RESET)
     print(Fore.YELLOW + "Описание:" + Fore.LIGHTGREEN_EX, lo_good.description, Fore.RESET)
     print(Fore.YELLOW + "Картинки:" + Fore.LIGHTGREEN_EX, lo_good.pictures, Fore.RESET)
+    print(Fore.YELLOW + "Размеры:" + Fore.LIGHTGREEN_EX, lo_good.sizes, Fore.RESET)
     return lo_good
 
 
@@ -58,7 +59,7 @@ if sys.argv[1] == 'catalog':
         #    continue
         if int(lo_good.price)>0:
             price.add_good('',
-                                prepare_str(lo_good.name),
+                                prepare_str(lo_good.name + ' ' + lo_good.article),
                                 prepare_str(lo_good.description),
                                 prepare_str(str(round(float(lo_good.price) * float(sys.argv[4]),2))),
                                 '15',

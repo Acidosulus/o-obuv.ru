@@ -37,7 +37,6 @@ class WD:
         echo(style('Список товаров каталога: ', fg='bright_yellow') + style(pc_link, fg='bright_white'))
         ll_catalog_items = []
         self.Get_HTML(pc_link)
-        self.Write_To_File('catalog.html')
         soup = BeautifulSoup(self.page_source, features='html5lib')
         items = soup.find_all('a', {'class': 'mainproducts-href'})
         for item in items:
