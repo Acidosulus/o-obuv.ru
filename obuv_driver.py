@@ -29,8 +29,10 @@ class WD:
         except: pass
 
     def Get_HTML(self, curl):
-        r = requests.get(curl, headers={'User-Agent': UserAgent().chrome})
+        r = requests.get(curl, headers={'User-Agent': UserAgent().firefox})
+        #r = requests.get(curl)
         self.page_source = r.text
+        str_to_file('file.html',self.page_source)
         return r.text
 
     def Get_List_Of_Links_On_Goods_From_Catalog(self, pc_link):
