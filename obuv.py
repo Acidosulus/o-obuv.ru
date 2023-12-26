@@ -1,3 +1,4 @@
+import time
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 import os
@@ -52,11 +53,14 @@ if sys.argv[1] == 'catalog':
         if is_price_have_link(sys.argv[3], link):
             print('Товар уже имеется в прайсе')
             continue
-        #try:
-        lo_good = unload_one_good(wd, link, sys.argv[3])
-        #except: 
-        #    print(Fore.RED,'ОШИБКА ПРИ ЗАГРУЗКЕ ТОВАРА',Fore.RESET)
-        #    continue
+        try:
+            lo_good = unload_one_good(wd, link, sys.argv[3])
+        except: 
+            try:
+                lo_good = unload_one_good(wd, link, sys.argv[3])
+            except:
+                print(Fore.RED,'ОШИБКА ПРИ ЗАГРУЗКЕ ТОВАРА',Fore.RESET)
+                continue
         if int(lo_good.price)>0:
             price.add_good('',
                                 prepare_str(lo_good.name + ' ' + lo_good.article),
