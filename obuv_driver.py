@@ -29,7 +29,7 @@ class WD:
         except: pass
 
     def Get_HTML(self, curl):
-        r = requests.get(curl, headers={'User-Agent': UserAgent(verify_ssl=False).firefox})
+        r = requests.get(curl, headers={'User-Agent': UserAgent().firefox}, verify=False)
         #r = requests.get(curl)
         self.page_source = r.text
         str_to_file('file.html',self.page_source)
